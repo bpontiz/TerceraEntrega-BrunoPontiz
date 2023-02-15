@@ -1,0 +1,11 @@
+Primero ejecutar el servidor con el siguiente comando:
+
+    npx 0x server.js
+
+Segundo emular la carga con el modulo Autocannon con los parametros:
+
+    -d: The number of seconds to run the autocannon.
+
+    -c: The number of concurrent connections to use.
+
+    command (in powershell): npx autocannon -d 20 -c 100 "http://localhost:8080/info"

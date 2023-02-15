@@ -1,0 +1,14 @@
+Inicializar los servidores en distintos puertos con el modulo forever de Node.js
+    forever start server.js 8081
+    forever start server.js 8082
+    forever start server.js 8083
+
+Para ver los servidores enlistados
+    forever list 
+
+        [0] en2o command script 8081 pid: 2436 id: 11084 logfile STOPPED
+
+        [1] 77yp command script 8082 pid: 12192 id: 8284 logfile STOPPED
+
+        [2] 8GkD command script 8083 pid: 5640 id: 3084 logfile STOPPED
+

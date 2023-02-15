@@ -1,0 +1,9 @@
+GZIP a url local http://localhost:PORT/info
+
+Sin utilizar compression() module: 
+
+    Response Size: 538 Bytes (body: 301 B, header: 237 B)
+
+Utilizando compression() module: 
+
+    Response Size: 561 Bytes (body: 301 B, header: 260 B)

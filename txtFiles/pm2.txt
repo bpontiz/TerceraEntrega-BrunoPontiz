@@ -1,0 +1,8 @@
+Inicializar un servidor mediante pm2 que por defecto es un modo fork en el puerto 8081
+    pm2 start server.js --name="test1" --watch -- 8081
+
+Hacer lo mismo pero especificando que utilice la maxima cantidad de nucleos de la CPU
+    pm2 start server.js --name="test2" --watch -i max -- 8082
+
+Destruir todos los servidores
+    pm2 kill

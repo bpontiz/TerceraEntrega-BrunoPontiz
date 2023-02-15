@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login</title>
+
+    <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../public/styles.css">
+</head>
+
+<body>
+    <section>
+        <div>
+            <h2>Login</h2>
+
+            <p>You have succesfully registered.</p>
+
+            <p>Please login to access your data.</p>
+
+            <form action="/login" method="post" role="form">
+                <div>
+                    <input class="" type="text" name="name" placeholder="Name" autocomplete="off" required>
+                </div>
+
+                <div>
+                    <input class="" type="email" name="email" placeholder="Email" autocomplete="off" required>
+                </div>
+
+                <div>
+                    <input class="" type="password" name="password" placeholder="Password" autocomplete="off" required>
+                <div>
+
+                <div>
+                    <input class="" type="submit" value="Login">
+                </div>
+            </form>
+            
+            <div>
+                <p class="">Do not have an account ?</p>
+                <button class="" onclick="location.href = '/register'">
+                    Sign Up
+                </button>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
