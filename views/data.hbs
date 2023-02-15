@@ -1,10 +1,13 @@
 <div class="container text-center my-3">
     <div class="jumbotron" style="background-color: rgb(249, 255, 215);color: rgb(8, 8, 8);">
         <h1>Logged in</h1>
+        <h5>Upload an Image:</h5>
+        <input type="file" value="Image">
+        <br>
         <h3>Welcome {{data.username}}</h2>
         <br>
-        <h4>Email: {{data.email}}</h4>
-        <h4>times visited: {{contador}}</h4>
+        <h5>Email: {{data.email}}</h5>
+        <h5>times visited: {{contador}}</h5>
         <button class="btn btn-danger my-5" onclick="location.href='/logout'">Logout</button>
     </div>
 </div>

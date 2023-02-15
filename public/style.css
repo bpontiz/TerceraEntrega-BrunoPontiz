@@ -1,0 +1,49 @@
+.mainSection {
+
+    margin: 5rem;
+
+    /* background-color: #ffcb7e; */
+
+}
+
+.centerDivLogin, .centerDivRegister, .centerDivLoginok {
+
+    max-width: 16rem;
+
+    padding: 2rem;
+
+    margin: auto;
+
+    border-radius: 10px;
+
+}
+
+.centerDivLogin {
+
+    background-color: #ffcb7e;
+
+}
+
+.centerDivRegister {
+
+    background-color: mediumturquoise;
+
+}
+
+.centerDivLoginok {
+
+    background-color: #a7fc96;
+
+}
+
+.login, .inputBox, .signup, .loginok {
+
+    text-align: center;
+
+}
+
+.form {
+
+    text-align: center;
+
+}
