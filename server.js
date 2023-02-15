@@ -17,21 +17,21 @@ passport.use('register', new LocalStrategy({
 
         const {email} = req.body;
 
-        const user = users.find(u => u.username === username);
+        const findUser = users.find(u => u.username === username);
 
-        if (user) {
+        if (findUser) {
             return done('User already registered.');
         }
 
-        const newUser = {
+        const user = {
             username,
             password,
             email,
         };
 
-        users.push(newUser)
+        users.push(user)
 
-        return done(null, newUser)
+        return done(null, user)
     }
 ));
 
@@ -101,3 +101,5 @@ const server = app.listen(PORT, () => {
 server.on("error", (err) => {
     console.log(err);
 })
+
+export default users;

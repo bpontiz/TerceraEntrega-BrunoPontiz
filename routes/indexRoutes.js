@@ -4,11 +4,11 @@ import compression from 'compression';
 import os from 'os';
 import logger from '../loggers/log4.js';
 import passport from 'passport';
-// import '../server.js';
+import users from '../server.js';
+
 
 const apiRoutes = Router();
 
-const users = [];
 
 const isAuth = (req, res, next) => {
     if (req.isAuthenticated()) {
@@ -114,7 +114,7 @@ apiRoutes.post('/login-ok', (req, res) => {
 
         req.session.contador = 0;
         
-        res.redirect('data');
+        res.redirect('/data');
 
     }
 
