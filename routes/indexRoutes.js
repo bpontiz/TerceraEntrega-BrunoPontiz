@@ -3,19 +3,39 @@ import calculate from '../calculate.js';
 import compression from 'compression';
 import os from 'os';
 import logger from '../loggers/log4.js';
+import passport from 'passport';
+// import '../server.js';
 
 const apiRoutes = Router();
 
 const users = [];
+
+const isAuth = (req, res, next) => {
+    if (req.isAuthenticated()) {
+
+        next();
+
+    } else {
+
+        res.redirect('/login');
+
+    };
+};
+
+apiRoutes.get('/', isAuth, (req, res) => {
+
+    res.redirect('/data');
+
+});
 
 apiRoutes.get('/', (req, res) => {
     const { url, method } = req.body;
     
     logger.info(`Redirecting to ${url} with method ${method}.`)
 
-    if (req.session.name) {
+    if (req.session.username) {
 
-        res.redirect('/datos');
+        res.redirect('/data');
 
     } else {
 
@@ -34,24 +54,20 @@ apiRoutes.get('/register', (req, res) => {
     res.sendFile('register.html', {root: 'views'});
 });
 
-apiRoutes.post('/register', (req, res) => {
-    const {email, name, password} = req.body;
-    const user = users.find(u => u.name == name);
-
-    if (user) {
-
-        return res.render('register-error');
-
-    } else {
-
-        users.push({name, email, password});
-
-        return res.redirect('login-ok');
-
-    }
-
-}
+apiRoutes.post('/register', 
+    passport.authenticate('register', 
+        { 
+            successRedirect: '/login-ok',
+            failureRedirect: '/failregister'
+        }
+    )
 );
+
+apiRoutes.get('/failregister', (req, res) => {
+
+    res.render('register-error');
+
+})
 
 apiRoutes.get('/login', (req, res) => {
     const { url, method } = req;
@@ -61,25 +77,20 @@ apiRoutes.get('/login', (req, res) => {
     res.sendFile('login.html', {root: 'views'});
 });
 
-apiRoutes.post('/login', (req, res) => {
-    const {name, password} = req.body;
+apiRoutes.post('/login', 
+    passport.authenticate('login', 
+        { 
+            failureRedirect: '/faillogin', 
+            successRedirect: '/data' 
+        }
+    )
+);
 
-    const user = users.find(u => u.name == name && u.password == password);
+apiRoutes.get('/faillogin', (req, res) => {
 
-    if (!user) {
+    res.render('login-error');
 
-        return res.render('login-error');
-
-    } else {
-
-        req.session.name = name;
-
-        req.session.contador = 0;
-        
-        res.redirect('data');
-
-    }
-});
+})
 
 apiRoutes.get('/login-ok', (req, res) => {
 
@@ -89,9 +100,9 @@ apiRoutes.get('/login-ok', (req, res) => {
 
 apiRoutes.post('/login-ok', (req, res) => {
 
-    const {name, password} = req.body;
+    const {username, password} = req.body;
 
-    const user = users.find(u => u.name == name && u.password == password);
+    const user = users.find(u => u.username == username && u.password == password);
 
     if (!user) {
 
@@ -99,7 +110,7 @@ apiRoutes.post('/login-ok', (req, res) => {
 
     } else {
 
-        req.session.name = name;
+        req.session.username = username;
 
         req.session.contador = 0;
         
@@ -110,33 +121,35 @@ apiRoutes.post('/login-ok', (req, res) => {
 })
 
 
-apiRoutes.get('/data', (req, res) => {
+apiRoutes.get('/data', isAuth, 
+    (req, res) => {
 
-    if (req.session.name) {
+        if(!req.user.contador) {
 
-        req.session.contador++;
+            req.user.contador = 0;
 
-        return res.render('data',
-            {
-                data: users.find(u => u.name == req.session.name),
-                contador: req.session.contador
-            });
+        }
 
-    } else {
+        req.user.contador++;
 
-        return res.redirect('/login');
+        res.render('data', {
 
+            data: users.find(u => u.username === req.user.username),
+            contador: req.user.contador
+
+        });
     }
-});
+);
 
 apiRoutes.get('/logout', (req, res) => {
     const { url, method } = req;
 
     logger.info(`Redirecting to ${url} with method ${method}.`);
 
-    req.session.destroy(err => {
-        res.redirect('/login')
-    });
+    req.logout();
+
+    res.redirect('/');
+
 });
 
 apiRoutes.get('/info', (req, res) => {
