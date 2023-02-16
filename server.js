@@ -6,7 +6,8 @@ import exphbs from 'express-handlebars';
 import './routes/indexRoutes.js';
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
-import {detailEmail} from './mailing/mailing.js';
+import {detailEthereal} from './mailing/mailing.js';
+import {detailGmail} from './mailing/gmailing.js';
 
 dotenv.config();
 
@@ -32,7 +33,15 @@ passport.use('register', new LocalStrategy({
 
         users.push(user)
 
-        detailEmail(user.email);
+        if (process.argv[2] == 'ethereal') {
+
+            detailEthereal(user.email);
+
+        } else {
+
+            detailGmail(user.email);
+
+        }
 
         return done(null, user)
     }

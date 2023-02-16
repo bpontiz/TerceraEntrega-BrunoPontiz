@@ -13,24 +13,23 @@ function createSendMail(mailConfig) {
     }
 };
 
-function createSendMailEthereal() {
+function createSendMailGmail() {
 
     return createSendMail({
-        
-        host: process.env.ETHEREAL_HOST,
-        port: process.env.ETHEREAL_PORT,
+
+        host: process.env.GMAIL_HOST,
+        port: process.env.GMAIL_PORT,
         auth: {
-            user: process.env.ETHEREAL_USERNAME,
-            pass: process.env.ETHEREAL_PASSWORD
+            user: process.env.GMAIL_USERNAME,
+            pass: process.env.GMAIL_PASSWORD
         }
 
     })
+}
 
-};
+const mailing = createSendMailGmail();
 
-const mailing = createSendMailEthereal();
-
-const detailEthereal = async (email) => {
+const detailGmail = async (email) => {
 
     const emailAccount = email ?
         email :
@@ -38,7 +37,7 @@ const detailEthereal = async (email) => {
 
     const emailSubject = 'New register';
 
-    const emailText = 'Welcome to coder-backend app';
+    const emailText = 'Message from coder-backend app';
 
     const emailAttachments = [];
 
@@ -64,4 +63,4 @@ const detailEthereal = async (email) => {
 
 
 
-export {detailEthereal};
+export {detailGmail};
