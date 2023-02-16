@@ -6,6 +6,7 @@ import exphbs from 'express-handlebars';
 import './routes/indexRoutes.js';
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
+import {detailEmail} from './mailing/mailing.js';
 
 dotenv.config();
 
@@ -30,6 +31,8 @@ passport.use('register', new LocalStrategy({
         };
 
         users.push(user)
+
+        detailEmail(user.email);
 
         return done(null, user)
     }
