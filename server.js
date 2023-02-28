@@ -78,8 +78,10 @@ passport.deserializeUser(function (username, done) {
 
 const app = express();
 
+const secretDefault = process.env.SECRET_KEY || 'l0g3r';
+
 app.use(session({
-    secret: process.env.SECRET_KEY,
+    secret: secretDefault,
     resave: false,
     saveUninitialized: false,
     cookie: {
